@@ -3,33 +3,33 @@
 //Generating the various HTml to place on the page. 
 let productsHTML = '';
 
-products.forEach((products) => {
+products.forEach((product) => {
   productsHTML += `
     <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
-              src="${products.image}">
+              src="${product.image}">
           </div>
 
           <div class="product-name limit-text-to-2-lines">
-            ${products.name}
+            ${product.name}
           </div>
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${products.rating.stars * 10}.png">
+              src="images/ratings/rating-${product.rating.stars * 10}.png">
             <div class="product-rating-count link-primary">
-              ${products.rating.count}
+              ${product.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-            $${products.priceCents / 100}
+            $${product.priceCents / 100}
           </div>
 
           <div class="product-quantity-container">
-            <select>
-              <option selected value="1">1</option>
+            <select class="js-quantity-selector-${product.id}">
+              <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
@@ -49,7 +49,7 @@ products.forEach((products) => {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary" data-product-id="${products.id}">
+          <button class="add-to-cart-button button-primary" data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>
@@ -67,23 +67,27 @@ document.querySelectorAll('.add-to-cart-button')
       const productId = button.dataset.productId;
 
       // Checking if product is already found in cart using productName.
-      let matchingitem;
-
+      let matchingItem;
       cart.forEach((item) => {
         if (item.productId === productId) {
-          matchingitem = item;
-        } 
+          matchingItem = item;
+        } // If an item is found, returns a truthy value which is passed to matchingItem variable.  
       });
+      
+      //Getting selected quantity from the dropdown list for this product. 
+      const selectedItemQuantityElement = document.querySelector(`.js-quantity-selector-${productId}`);
+      const selectedQuantity = Number(selectedItemQuantityElement.value); 
 
-      if (matchingitem) {
-        matchingitem.quantity += 1;
+      if (matchingItem) {
+        matchingItem.quantity += selectedQuantity;
       } else {
         cart.push({
           productId: productId,
-          quantity: 1
+          quantity: selectedQuantity
         });
       }
-      
+
+      // Incresing Cart Quantity. 
       cartQuantity = 0;
       cart.forEach((item) => {
         cartQuantity += item.quantity;
