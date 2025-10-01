@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 //Products information is being save in an array as a list in a different file "./data/products.js".
 
@@ -67,38 +67,20 @@ document.querySelectorAll('.add-to-cart-button')
   .forEach((button) => {
     button.addEventListener('click', () => {
       const productId = button.dataset.productId;
-
-      // Checking if product is already found in cart using productName.
-      let matchingItem;
-      cart.forEach((item) => {
-        if (item.productId === productId) {
-          matchingItem = item;
-        } // If an item is found, returns a truthy value which is passed to matchingItem variable.  
-      });
-      
-      //Getting selected quantity from the dropdown list for this product. 
-      const selectedItemQuantityElement = document.querySelector(`.js-quantity-selector-${productId}`);
-      const selectedQuantity = Number(selectedItemQuantityElement.value); 
-
-      if (matchingItem) {
-        matchingItem.quantity += selectedQuantity;
-      } else {
-        cart.push({
-          productId: productId,
-          quantity: selectedQuantity
-        });
-      }
-
-      // Incresing Cart Quantity. 
-      let cartQuantity = 0;
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
-      });
-
-      document.querySelector('.js-cart-quantity')
-        .innerHTML = cartQuantity;
-      
-      
+      addToCart(productId);
+      updateCartQuantity();
     });
   });
+
+function updateCartQuantity() {
+  // Incresing Cart Quantity. 
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+ 
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity;
+
+}
 
