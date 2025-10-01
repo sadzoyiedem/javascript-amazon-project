@@ -84,11 +84,13 @@ document.querySelectorAll('.add-to-cart-button')
         });
       }
       
-      // cart.push({
-      //   productName: productName,
-      //   quantity: 1
-      // });
-      console.log(cart);
+      cartQuantity = 0;
+      cart.forEach((item) => {
+        cartQuantity += item.quantity;
+      });
+
+      document.querySelector('.js-cart-quantity')
+        .innerHTML = cartQuantity;
     });
   });
 
