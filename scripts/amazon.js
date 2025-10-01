@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js';
+import { products } from '../data/products.js';
 //Products information is being save in an array as a list in a different file "./data/products.js".
 
 //Generating the various HTml to place on the page. 
@@ -44,7 +46,7 @@ products.forEach((product) => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-to-cart" id="added-to-cart">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -88,13 +90,15 @@ document.querySelectorAll('.add-to-cart-button')
       }
 
       // Incresing Cart Quantity. 
-      cartQuantity = 0;
+      let cartQuantity = 0;
       cart.forEach((item) => {
         cartQuantity += item.quantity;
       });
 
       document.querySelector('.js-cart-quantity')
         .innerHTML = cartQuantity;
+      
+      
     });
   });
 
