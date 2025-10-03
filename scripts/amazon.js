@@ -1,5 +1,7 @@
 import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
+import { formatCurrency } from './utils/money.js';
+
 //Products information is being save in an array as a list in a different file "./data/products.js".
 
 //Generating the various HTml to place on the page. 
@@ -26,7 +28,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            $${product.priceCents / 100}
+            $${formatCurrency(product.priceCents)}
           </div>
 
           <div class="product-quantity-container">
