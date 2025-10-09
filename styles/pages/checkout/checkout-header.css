@@ -2,8 +2,8 @@
   height: 60px;
   padding-left: 30px;
   padding-right: 30px;
-  background-color: white;
-
+  background-color: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgb(222, 222, 222);
   display: flex;
   justify-content: center;
 
