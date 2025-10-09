@@ -74,15 +74,18 @@ document.querySelectorAll('.add-to-cart-button')
     });
   });
 
-function updateCartQuantity() {
-  // Incresing Cart Quantity. 
-  let cartQuantity = 0;
+// Load existing cart quantity on page load.
+updateCartQuantity();
+
+// Update cart quantity both in localStorage and on the page.
+export  function updateCartQuantity() { 
+  let newCartQuantity = 0;
+
   cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
+    newCartQuantity += cartItem.quantity;
   });
- 
-  document.querySelector('.js-cart-quantity')
-    .innerHTML = cartQuantity;
   
+  // Update display
+  document.querySelector('.js-cart-quantity').innerHTML = newCartQuantity;
 }
 
