@@ -1,12 +1,13 @@
-import { cart, removeFromCart, updateCartQuantity, updateDeliveryOption } from "../data/cart.js";
-import { products } from "../data/products.js";
-import { formatCurrency } from "./utils/money.js";
+import { cart, removeFromCart, updateCartQuantity, updateDeliveryOption } from "../../data/cart.js";
+import { products } from "../../data/products.js";
+import { formatCurrency } from "../utils/money.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deliveryOptions } from "../data/deliveryOptions.js";
+import { deliveryOptions } from "../../data/deliveryOptions.js";
 
-// Initial call to set the cart count when the page loads
-updateCartQuantity();
-function renderCartSummary() {
+
+export function renderCartSummary() {
+  // Initial call to set the cart count when the page loads
+  updateCartQuantity();
   // Setting up HTML for each product in the cart.
   let cartSummaryHTML = '';
   cart.forEach((cartItem) => {
@@ -158,4 +159,3 @@ function renderCartSummary() {
     });
 }
 
-renderCartSummary();
