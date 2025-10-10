@@ -67,3 +67,18 @@ export function updateCartQuantity() {
   const newCartQuantityElement = document.querySelector('.js-cart-quantity');
   newCartQuantityElement.innerHTML = newCartQuantity;
 }
+
+// Handling delivery options update.
+export function updateDeliveryOption(productId, deliveryOptionId) {
+
+  let matchingItem;
+  cart.forEach((cartItem) => {
+    if (cartItem.productId === productId) {
+      matchingItem = cartItem;
+    }   
+  });
+  
+  matchingItem.deliveryOptionId = deliveryOptionId;
+  // Saving cart to localStorage after update. 
+  saveToStorage();
+}
