@@ -62,5 +62,8 @@ export function renderPaymentSummary() {
   //Rendering the HTML on the page.
   document.querySelector('.js-payment-summary')
     .innerHTML = paymentSummaryHTML; 
+
+  //Making it interactive (Controller).
+    
   
 }
