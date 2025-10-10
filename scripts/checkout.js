@@ -1,22 +1,11 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart,updateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 // import { updateCartQuantity } from "./amazon.js";
 
 
-// Displaying number of items in cart on the checkout page.
-function updateCartCount() {
-  let cartCount = 0; // reset cart count to 0 before recalculating
-  cart.forEach((cartItem) => {
-    cartCount += cartItem.quantity;
-  }); 
-  const cartCountElement = document.getElementById('checkout-cart-count');
-  cartCountElement.innerHTML = `Checkout (${cartCount} items)`;
-} 
-
 // Initial call to set the cart count when the page loads
-updateCartCount();
-
+updateCartQuantity();
 // Generating HTML for each product in the cart.
 let cartSummaryHTML = '';
 /*
@@ -130,7 +119,6 @@ document.querySelectorAll('.js-delete-link')
       cartItemContainerElement.remove();
       
       // Recalculate and update cart count after an item is removed.
-      updateCartCount();
-      // updateCartQuantity();
+      updateCartQuantity();
     });
   });

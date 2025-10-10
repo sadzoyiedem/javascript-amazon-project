@@ -52,3 +52,19 @@ export function removeFromCart(productId) {
   //Saving cart to localStorage after update. 
   saveToStorage();
 }
+
+// Displaying number of items in cart on the checkout page.
+
+
+// Update cart quantity both in localStorage and on the page.
+export  function updateCartQuantity() { 
+  let newCartQuantity = 0; //reset cart quantity to 0 before recalculating
+
+  cart.forEach((cartItem) => {
+    newCartQuantity += cartItem.quantity;
+  });
+  
+  // Update display
+  const newCartQuantityElement = document.querySelector('.js-cart-quantity');
+  newCartQuantityElement.innerHTML = newCartQuantity;
+}

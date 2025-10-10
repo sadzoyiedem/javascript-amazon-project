@@ -19,7 +19,10 @@
   font-size: 22px;
   margin-bottom: 18px;
 }
-
+.js-cart-quantity{
+  margin-left: 2px;
+  margin-right: 2px;
+}
 .checkout-grid {
   display: grid;
   /* Here, 1fr means the first column will take

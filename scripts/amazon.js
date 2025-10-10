@@ -1,4 +1,4 @@
-import {cart, addToCart} from '../data/cart.js';
+import {cart, addToCart,updateCartQuantity} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -77,15 +77,5 @@ document.querySelectorAll('.add-to-cart-button')
 // Load existing cart quantity on page load.
 updateCartQuantity();
 
-// Update cart quantity both in localStorage and on the page.
-export  function updateCartQuantity() { 
-  let newCartQuantity = 0;
 
-  cart.forEach((cartItem) => {
-    newCartQuantity += cartItem.quantity;
-  });
-  
-  // Update display
-  document.querySelector('.js-cart-quantity').innerHTML = newCartQuantity;
-}
 
