@@ -1,16 +1,14 @@
-export let cart = JSON.parse(localStorage.getItem('cart')); 
+export let cart = JSON.parse(localStorage.getItem('cart'));
+
 if (!cart) {
-  [{
-      productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-      quantity: 2
-    }, {
-      productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-      quantity: 1
-    }
-  ];
+  cart = [{
+    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+    quantity: 2,
+    deliveryOptionId: '1'
+  }];  
 }
 // Saving Cart to localStorage. 
-function saveToStorage(){
+function saveToStorage() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
@@ -32,7 +30,8 @@ export function addToCart(productId) {
   } else {
     cart.push({
       productId: productId,
-      quantity: selectedQuantity
+      quantity: selectedQuantity,
+      deliveryOptionId: '1'
     });
   }
   // Saving cart to localStorage after update. 
@@ -47,7 +46,7 @@ export function removeFromCart(productId) {
     }
   });
 
-  cart = newCart; 
+  cart = newCart;
 
   //Saving cart to localStorage after update. 
   saveToStorage();
@@ -57,13 +56,13 @@ export function removeFromCart(productId) {
 
 
 // Update cart quantity both in localStorage and on the page.
-export  function updateCartQuantity() { 
+export function updateCartQuantity() {
   let newCartQuantity = 0; //reset cart quantity to 0 before recalculating
 
   cart.forEach((cartItem) => {
     newCartQuantity += cartItem.quantity;
   });
-  
+
   // Update display
   const newCartQuantityElement = document.querySelector('.js-cart-quantity');
   newCartQuantityElement.innerHTML = newCartQuantity;
