@@ -5,7 +5,7 @@ if (!cart) {
     productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
     quantity: 2,
     deliveryOptionId: '1'
-  }];  
+  }];
 }
 // Saving Cart to localStorage. 
 function saveToStorage() {
@@ -75,9 +75,9 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   cart.forEach((cartItem) => {
     if (cartItem.productId === productId) {
       matchingItem = cartItem;
-    }   
+    }
   });
-  
+
   matchingItem.deliveryOptionId = deliveryOptionId;
   // Saving cart to localStorage after update. 
   saveToStorage();
