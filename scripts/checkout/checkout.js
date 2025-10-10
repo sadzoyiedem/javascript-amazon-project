@@ -1,3 +1,5 @@
-import { renderCartSummary } from "./orderSummary.js";
+import { renderOrderSummary } from "./orderSummary.js";
+import { renderPaymentSummary } from "./paymentSummary.js"; 
 
-renderCartSummary();
+renderPaymentSummary();
+renderOrderSummary();

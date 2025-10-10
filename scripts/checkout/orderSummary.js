@@ -1,33 +1,33 @@
 import { cart, removeFromCart, updateCartQuantity, updateDeliveryOption } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products,getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import { deliveryOptions,getDeliveryOption } from "../../data/deliveryOptions.js";
 
 
-export function renderCartSummary() {
+export function renderOrderSummary() {
   // Initial call to set the cart count when the page loads
   updateCartQuantity();
+
   // Setting up HTML for each product in the cart.
   let cartSummaryHTML = '';
+
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
-    let matchingProduct;
-    products.forEach((product) => {
-      if (product.id === productId) {
-        matchingProduct = product // matchingProduct is now an array. 
-      }
-    });
+
+    const matchingProduct = getProduct(productId);
     // console.log(matchingProduct);
 
     // Getting the delivery option selected for this cart item.
     const deliveryOptionId = cartItem.deliveryOptionId;
-    let deliveryOption;
-    deliveryOptions.forEach((option) => {
-      if (option.id === deliveryOptionId) {
-        deliveryOption = option;
-      }
-    });
+
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
+    
+    // deliveryOptions.forEach((option) => {
+    //   if (option.id === deliveryOptionId) {
+    //     deliveryOption = option;
+    //   }
+    // });
     // console.log(deliveryOption);
 
     // Getting deliveryDate using dayjs library.
@@ -154,7 +154,7 @@ export function renderCartSummary() {
       optionElement.addEventListener('click', () => {
         const { productId, deliveryOptionId } = optionElement.dataset;//Shorthand Property. 
         updateDeliveryOption(productId, deliveryOptionId);
-        renderCartSummary();
+        renderOrderSummary();
       });
     });
 }
