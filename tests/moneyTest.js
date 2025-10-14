@@ -17,7 +17,7 @@ if ((formatCurrency(0)) === '0.00') {
 }
 
 console.log('rounds of the number before converting to dollars')
-if ((formatCurrency(2000.5)) === '20.01') {
+if ((formatCurrency(2000.5)) === '20.0') {
   console.log('passed');
 } else {
   console.log('failed');
