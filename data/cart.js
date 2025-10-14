@@ -1,3 +1,5 @@
+import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
+
 export let cart = JSON.parse(localStorage.getItem('cart'));
 
 if (!cart) {
@@ -64,8 +66,12 @@ export function updateCartQuantity() {
   });
 
   // Update display
-  const newCartQuantityElement = document.querySelector('.js-cart-quantity');
-  newCartQuantityElement.innerHTML = newCartQuantity;
+  const newCartQuantityElement = document.querySelectorAll('.js-cart-quantity');
+  newCartQuantityElement.forEach((item) =>{
+    item.innerHTML = newCartQuantity;
+  });
+  
+  saveToStorage();
 }
 
 // Handling delivery options update.
@@ -81,4 +87,37 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   matchingItem.deliveryOptionId = deliveryOptionId;
   // Saving cart to localStorage after update. 
   saveToStorage();
+}
+
+export function handlingSaveClick(savelink){
+  const productContainer = savelink.closest('.cart-item-container');
+          const productId = productContainer.querySelector('.js-update-link').dataset.productId;
+          const inputQuantityElement = productContainer.querySelector('.update-quantity-input')
+          const currentQuantity = productContainer.querySelector('.quantity-label')
+          const updateLink = productContainer.querySelector('.js-update-link');
+
+          const newQuantity = Number(inputQuantityElement.value);
+
+          // Update Display
+          currentQuantity.textContent = newQuantity;
+
+          //Save data to Cart.
+          cart.forEach((cartItem) => {
+            if (cartItem.productId === productId) {
+              cartItem.quantity = newQuantity;
+            }
+          });
+
+          // Saving to localStorage
+          localStorage.setItem('cart', JSON.stringify(cart));
+
+          // Recalculate and update tools
+          updateCartQuantity();
+          renderPaymentSummary();
+
+         // Toggle back to view mode
+          inputQuantityElement.classList.remove('is-editing-quantity');
+          savelink.classList.remove('is-editing-quantity');
+          currentQuantity.classList.remove('update-onclick');
+          updateLink.classList.remove('update-onclick');  
 }

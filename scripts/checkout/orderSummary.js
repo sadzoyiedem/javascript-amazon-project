@@ -1,8 +1,8 @@
-import { cart, removeFromCart, updateCartQuantity, updateDeliveryOption } from "../../data/cart.js";
-import { products,getProduct } from "../../data/products.js";
+import { cart, removeFromCart, updateCartQuantity, updateDeliveryOption, handlingSaveClick } from "../../data/cart.js";
+import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deliveryOptions,getDeliveryOption } from "../../data/deliveryOptions.js";
+import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 
 
@@ -39,8 +39,7 @@ export function renderOrderSummary() {
 
     // Generating the HTML for products in the cart. 
     cartSummaryHTML += `
-      <div class="cart-item-container 
-      js-cart-container-${matchingProduct.id}">
+      <div class="cart-item-container js-cart-container-${matchingProduct.id}">
         <div class="delivery-date">
           Delivery date: ${dateString}
         </div>
@@ -64,7 +63,9 @@ export function renderOrderSummary() {
                 Update
               </span>
               <input type= "number" class = "update-quantity-input">
-              <span class = "link-primary"> Save </span> 
+              <span class = "link-primary link-display js-save-link">
+               Save 
+              </span> 
               <span class="delete-quantity-link link-primary js-delete-link" data-product-id = "${matchingProduct.id}">
                 Delete
               </span>
@@ -83,6 +84,7 @@ export function renderOrderSummary() {
   });
 
   // Generating delivery options HTML.[Function here!]
+
   function deliveryOptionHtml(matchingProduct, cartItem) {
     let deliveryOptionsHTML = '';
 
@@ -131,10 +133,10 @@ export function renderOrderSummary() {
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
         removeFromCart(productId);
-        
+
         const cartItemContainerElement = document.querySelector(`.js-cart-container-${productId}`);
         cartItemContainerElement.remove();
-        
+
         renderPaymentSummary();
 
         // Recalculate and update cart count after an item is removed.
@@ -146,10 +148,50 @@ export function renderOrderSummary() {
   document.querySelectorAll('.js-update-link')
     .forEach((link) => {
       link.addEventListener('click', () => {
+
+        // Helps get the right product container
         const productId = link.dataset.productId;
-        // console.log(productId);
+        console.log(productId);
+        link.classList.add('update-onclick');
+
+        const productContainer = document.querySelector(`.js-cart-container-${productId}`)
+
+        const saveButtonElement = productContainer.querySelector('.link-display')
+        const inputQuantityElement = productContainer.querySelector('.update-quantity-input')
+        const currentQuantity = productContainer.querySelector('.quantity-label');
+
+        // console.log(currentQuantity);
+
+        // Adding new class to element on update-click.
+        saveButtonElement.classList.add('is-editing-quantity')
+        inputQuantityElement.classList.add('is-editing-quantity')
+        currentQuantity.classList.add('update-onclick');
+
+        //Prefill the input with current quantity. 
+        inputQuantityElement.value = Number(currentQuantity.textContent);
       });
     });
+
+  // Handling Save Clicks
+  function saveLinkClicks() {
+    document.querySelectorAll('.js-save-link')
+      .forEach((savelink) => {
+        savelink.addEventListener('click', () => {
+          handlingSaveClick(savelink);
+        });
+        const inputQuantityElement = savelink
+          .closest('.cart-item-container')
+          .querySelector('.update-quantity-input');
+
+        inputQuantityElement.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            handlingSaveClick(savelink);
+          }
+        });
+
+      });
+  }
+  saveLinkClicks();
 
   // Handling delivery option changes.
   document.querySelectorAll('.js-delivery-option')
@@ -162,4 +204,5 @@ export function renderOrderSummary() {
       });
     });
 }
+
 

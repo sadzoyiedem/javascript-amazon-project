@@ -19,10 +19,12 @@
   font-size: 22px;
   margin-bottom: 18px;
 }
-.js-cart-quantity{
+
+.js-cart-quantity {
   margin-left: 2px;
   margin-right: 2px;
 }
+
 .checkout-grid {
   display: grid;
   /* Here, 1fr means the first column will take
@@ -71,14 +73,7 @@
   }
 }
 
-.update-quantity-input {
-  width: 40px;
-  padding: 5px;
-  border-radius: 3px;
-  border: 1px solid rgb(222, 222, 222);
-  margin-left: 10px;
-  margin-right: 5px;
-}
+
 .delivery-date {
   color: rgb(0, 118, 0);
   font-weight: 700;
@@ -126,9 +121,34 @@
   margin-bottom: 5px;
 }
 
+.update-quantity-input {
+  display: none;
+  width: 30px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid rgb(222, 222, 222);
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
 .product-quantity .link-primary {
   margin-left: 3px;
 }
+
+.link-display {
+  display: none;
+}
+
+.is-editing-quantity {
+  display: initial;
+
+}
+
+.update-onclick {
+  display: none;
+}
+
+
 
 @media (max-width: 1000px) {
   .delivery-options {

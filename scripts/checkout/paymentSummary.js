@@ -1,4 +1,4 @@
-import { cart } from "../../data/cart.js";
+import { cart,updateCartQuantity } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
@@ -25,13 +25,17 @@ export function renderPaymentSummary() {
 
   // Generating the HTML (View)
 
+  // Initial call to set the cart count when page loads. 
+  // updateCartQuantity();
+
+
   const paymentSummaryHTML = `
     <div class="payment-summary-title">
       Order Summary
     </div>
 
     <div class="payment-summary-row">
-      <div>Items (3):</div>
+      <div>Items (<span class = "js-cart-quantity">0</span>):</div>
       <div class="payment-summary-money">$${formatCurrency(productPriceCents)}</div>
     </div>
 
@@ -65,5 +69,7 @@ export function renderPaymentSummary() {
 
   //Making it interactive (Controller).
     
+
+//  renderPaymentSummary();
   
 }
