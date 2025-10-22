@@ -1,4 +1,4 @@
-  import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
+import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
 
 export let cart = JSON.parse(localStorage.getItem('cart'));
 
@@ -25,12 +25,12 @@ export function addToCart(productId) {
 
   //Getting selected quantity from the dropdown list for this product. 
   const selectedItemQuantityElement = document.querySelector(`.js-quantity-selector-${productId}`);
-  
+
   let selectedQuantity = Number(selectedItemQuantityElement.value);
 
-  if (selectedItemQuantityElement === null){
+  if (selectedItemQuantityElement === null) {
     selectedQuantity = 1
-  } 
+  }
 
   if (matchingItem) {
     matchingItem.quantity += selectedQuantity;
@@ -72,10 +72,10 @@ export function updateCartQuantity() {
 
   // Update display
   const newCartQuantityElement = document.querySelectorAll('.js-cart-quantity');
-  newCartQuantityElement.forEach((item) =>{
+  newCartQuantityElement.forEach((item) => {
     item.innerHTML = newCartQuantity;
   });
-  
+
   saveToStorage();
 }
 
@@ -94,35 +94,35 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   saveToStorage();
 }
 
-export function handlingSaveClick(savelink){
+export function handlingSaveClick(savelink) {
   const productContainer = savelink.closest('.cart-item-container');
-          const productId = productContainer.querySelector('.js-update-link').dataset.productId;
-          const inputQuantityElement = productContainer.querySelector('.update-quantity-input')
-          const currentQuantity = productContainer.querySelector('.quantity-label')
-          const updateLink = productContainer.querySelector('.js-update-link');
+  const productId = productContainer.querySelector('.js-update-link').dataset.productId;
+  const inputQuantityElement = productContainer.querySelector('.update-quantity-input')
+  const currentQuantity = productContainer.querySelector('.quantity-label')
+  const updateLink = productContainer.querySelector('.js-update-link');
 
-          const newQuantity = Number(inputQuantityElement.value);
+  const newQuantity = Number(inputQuantityElement.value);
 
-          // Update Display
-          currentQuantity.textContent = newQuantity;
+  // Update Display
+  currentQuantity.textContent = newQuantity;
 
-          //Save data to Cart.
-          cart.forEach((cartItem) => {
-            if (cartItem.productId === productId) {
-              cartItem.quantity = newQuantity;
-            }
-          });
+  //Save data to Cart.
+  cart.forEach((cartItem) => {
+    if (cartItem.productId === productId) {
+      cartItem.quantity = newQuantity;
+    }
+  });
 
-          // Saving to localStorage
-          localStorage.setItem('cart', JSON.stringify(cart));
+  // Saving to localStorage
+  localStorage.setItem('cart', JSON.stringify(cart));
 
-          // Recalculate and update tools
-          updateCartQuantity();
-          renderPaymentSummary();
+  // Recalculate and update tools
+  updateCartQuantity();
+  renderPaymentSummary();
 
-         // Toggle back to view mode
-          inputQuantityElement.classList.remove('is-editing-quantity');
-          savelink.classList.remove('is-editing-quantity');
-          currentQuantity.classList.remove('update-onclick');
-          updateLink.classList.remove('update-onclick');  
+  // Toggle back to view mode
+  inputQuantityElement.classList.remove('is-editing-quantity');
+  savelink.classList.remove('is-editing-quantity');
+  currentQuantity.classList.remove('update-onclick');
+  updateLink.classList.remove('update-onclick');
 }
