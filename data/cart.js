@@ -1,4 +1,4 @@
-import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
+  import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
 
 export let cart = JSON.parse(localStorage.getItem('cart'));
 
@@ -25,7 +25,12 @@ export function addToCart(productId) {
 
   //Getting selected quantity from the dropdown list for this product. 
   const selectedItemQuantityElement = document.querySelector(`.js-quantity-selector-${productId}`);
-  const selectedQuantity = Number(selectedItemQuantityElement.value);
+  
+  let selectedQuantity = Number(selectedItemQuantityElement.value);
+
+  if (selectedItemQuantityElement === null){
+    selectedQuantity = 1
+  } 
 
   if (matchingItem) {
     matchingItem.quantity += selectedQuantity;

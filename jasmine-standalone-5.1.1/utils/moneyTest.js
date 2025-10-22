@@ -15,7 +15,5 @@ describe('Test suite: formatCurrency', () =>{
   
   it('rounds number then converts to dollars', () =>{
     expect(formatCurrency(200.3)).toEqual('2.00');
-
   });
-  
 });
