@@ -2,19 +2,19 @@ import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
 
 class Cart {
   cartItems;
-  localStorageKey;
+  #localStorageKey;
 
   // Setup code for various instances
   constructor(key) {
     // Setting the localStorage Key which is initially undefined. 
-    this.localStorageKey = key;
-
+    this.#localStorageKey = key;
+     
     // Loading Generated objects from localStorage. 
-    this.loadFromLocalStorage();
+    this.#loadFromLocalStorage();
   }
 
-  loadFromLocalStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromLocalStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
 
     if (!this.cartItems) {
       this.cartItems = [{
@@ -26,7 +26,7 @@ class Cart {
   }
 
   saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   addToCart(productId) {
