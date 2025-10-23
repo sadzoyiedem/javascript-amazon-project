@@ -1,5 +1,6 @@
 import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
 
+
 class Cart {
   cartItems;
   #localStorageKey;
