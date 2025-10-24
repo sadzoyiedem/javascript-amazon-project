@@ -1,6 +1,5 @@
 import { addToCart, updateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
 
 //Products information is being save in an array as a list in a different file "./data/products.js".
 
@@ -45,6 +44,8 @@ products.forEach((product) => {
               <option value="10">10</option>
             </select>
           </div>
+
+            ${product.sizeChartLinkHTML()}
 
           <div class="product-spacer"></div>
 

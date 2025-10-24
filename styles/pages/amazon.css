@@ -126,6 +126,15 @@
   margin-bottom: 17px;
 }
 
+.size-chart-link {
+  display: block;
+  margin-top: 8px;
+  color: #0073e6;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .product-spacer {
   flex: 1;
 }
