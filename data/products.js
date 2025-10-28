@@ -721,6 +721,6 @@ export const products = [
     return new Clothing(productDetails);
   }
   return new Products(productDetails);
-});
+}); 
 
 console.log(products);  

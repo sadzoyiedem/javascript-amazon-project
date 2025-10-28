@@ -1,4 +1,4 @@
-import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
+  import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
 
 export let cart = JSON.parse(localStorage.getItem('cart'));
 

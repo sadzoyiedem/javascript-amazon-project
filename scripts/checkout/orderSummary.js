@@ -24,13 +24,6 @@ export function renderOrderSummary() {
 
     const deliveryOption = getDeliveryOption(deliveryOptionId);
 
-    // deliveryOptions.forEach((option) => {
-    //   if (option.id === deliveryOptionId) {
-    //     deliveryOption = option;
-    //   }
-    // });
-    // console.log(deliveryOption);
-
     // Getting deliveryDate using dayjs library.
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
@@ -127,16 +120,16 @@ export function renderOrderSummary() {
   document.getElementById('order-summary')
     .innerHTML = cartSummaryHTML;
 
-  // Handling delete link clicks.
+  // Handling delete link clicks.(Controllers)
   document.querySelectorAll('.js-delete-link')
     .forEach((link) => {
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
         removeFromCart(productId);
 
-        const cartItemContainerElement = document.querySelector(`.js-cart-container-${productId}`);
-        cartItemContainerElement.remove();
-
+        // const cartItemContainerElement = document.querySelector(`.js-cart-container-${productId}`);
+        // cartItemContainerElement.remove();
+        renderOrderSummary();
         renderPaymentSummary();
 
         // Recalculate and update cart count after an item is removed.
